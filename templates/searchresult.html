@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock title %}
+
+
+{% block body %}
+
+{% include 'playercard.html' %}
+{% include 'navbar.html' %}
+
+<div class="container" id = "resultId" style="padding-top: 3%; padding-bottom: 3%; font-size:medium; color: gray;" > Your Search Results for : "{{keyword}}"</div>
+
+{% if songs %}
+
+<div class="container my-3">
+    {% for i in songs reversed %}
+    <div class="card mb-3" style="max-width: 940px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="/media/{{i.image}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" style="color:blueviolet;">Title: {{i.title}}</h5>
+                    <p class="card-text"> Tag: {{i.tags}}</p>
+                    <p class="card-text"> copyrights: {{i.copyrights}}</p>
+                    <p class="card-text"><small class="text-muted">Artist: {{i.artist}}</small></p>
+                    {% if user.is_authenticated %}
+                    <form action="/music/history" method="post">{% csrf_token %}
+                        <input type="hidden" name="music_id" value="{{i.song_id}}">
+                    <a href="/music/songlisten/{{i.song_id}}"> <button type="submit" class="btn btn-outline-danger">Go to Song</button></a>
+                    </form>
+                    {% else %}
+                    <a href="/music/songlisten/{{i.song_id}}"> <button class="btn btn-outline-danger">Go to Song</button></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+</div>
+
+
+{% else %}
+<script>
+    document.getElementById('resultId').innerHTML = "Can't find anything for:{{ keyword}}"
+</script>
+
+{% endif %}
+
+
+{% endblock body %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/login.css">
+    <title> Login From</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+
+</head>
+
+
+    <div class="login_form_container">
+        <form method="post" action="/login">
+            {% csrf_token %}
+            <div class="login_form">
+                <h2>Login</h2>
+                <div class="input_group">
+                    <i class="fa fa-user"></i>
+                    <input type="text" placeholder="Username" class="input_text" autocomplete="off" name="username" />
+                </div>
+                <div class="input_group">
+                    <i class="fa fa-unlock-alt"></i>
+                    <input type="password" placeholder="Password" class="input_text" autocomplete="off"
+                        name="password" />
+                </div>
+                <div class="button_group" id="login_button">
+                    <button> <a>Log in</a> </button>
+                </div>
+                <div class="fotter">
+                    
+                    <a href="/">Forgot Password ?</a>
+                    <a href="/signup">Sign Up</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="/static/javascript/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Song List{% endblock title %}
+
+
+{% block body %}
+
+{% include 'playercard.html' %}
+{% include 'navbar.html' %}
+
+<div class="container my-3">
+    {% for i in song reversed %}
+    <div class="card mb-3" style="max-width: 940px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="/media/{{i.image}}" class="img-fluid rounded-start" alt="..." name="imgsrc">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" style="color:blueviolet;" name="titlesrc">Title: {{i.title}}</h5>
+                    <p class="card-text"> Tag: {{i.tags}}</p>
+                    <p class="card-text"> copyrights: {{i.copyrights}}</p>
+                    <p class="card-text"><small class="text-muted" name="artistsrc">Artist: {{i.artist}}</small></p>
+
+                    <div>
+
+                        {% if user.is_authenticated %}
+                        <form action="/music/history" method="post">{% csrf_token %}
+                            <input type="hidden" name="music_id" value="{{i.song_id}}">
+                            <a href="/music/songlisten/{{i.song_id}}"> <button class="btn btn-outline-danger"> Go to
+                                    Song</button></a>
+                        </form>
+
+                        {% else %}
+
+                        <a href="/music/songlisten/{{i.song_id}}"> <button class="btn btn-outline-danger">Listen
+                                Now</button></a>
+                        {% endif %}
+                        <source src="/media/{{i.song}}" name="mediasource">
+                        <button class="btn btn-outline-danger" id="ms" name="btns"> Play Now</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<script src="/static/javascript/listenlaters.js"></script>
+
+
+{% endblock body %}
