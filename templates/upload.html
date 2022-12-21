@@ -19,7 +19,7 @@
     <style>
         body {
             height: 100%;
-            
+
         }
 
         body {
@@ -47,14 +47,16 @@
             /* border-top-right-radius: 0; */
         }
 
-        .form-upload input[type="file"]{
+        .form-upload input[type="file"] {
             margin-bottom: 10px;
         }
-        .form-upload input[type="file"]{
+
+        .form-upload input[type="file"] {
             margin-bottom: 10px;
             text-transform: capitalize;
         }
-        .form-upload label{
+
+        .form-upload label {
             text-align: left;
             padding-left: 5%;
         }
@@ -90,6 +92,24 @@
     <div>
         {% include 'navbar.html' %}
     </div>
+    <!-- Message Interation  -->
+
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong> {{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"> &times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!-- Message Interation End -->
+    </div>
+
+
+
 
     <div>
         <main class="form-upload w-100 m-auto">
@@ -101,7 +121,7 @@
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Song Title</label>
-                    <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title">
+                    <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" required>
                 </div>
 
                 <div class="form-floating">
@@ -121,12 +141,13 @@
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Image</label>
-                    <input accept=".jpg, .jpeg, .png" type="file" class="form-control" id="floatingInput" name="image" placeholder="Images">
+                    <input accept=".jpg, .jpeg, .png" type="file" class="form-control" id="floatingInput" name="image"
+                        placeholder="Images" required>
                 </div>
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Song</label>
-                    <input type="file" class="form-control" id="floatingInput" name="song" placeholder="Song">
+                    <input type="file" class="form-control" id="floatingInput" name="song" placeholder="Song" required>
                 </div>
 
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Upload</button>
@@ -136,7 +157,7 @@
             </form>
         </main>
 
-    <div>
+        <div>
 
 
 </body>

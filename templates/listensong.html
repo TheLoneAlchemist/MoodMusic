@@ -21,6 +21,10 @@
 </script>
 {% endif %}
 
+<!-- Download Button css  -->
+<link rel="stylesheet" href="/static/css/button.css">
+
+
 <div class="container-fluid">
 
     <div class="row my-4 mx-3">
@@ -42,9 +46,9 @@
                 <div class="row" style=" flex-wrap: nowrap; margin-right: 65%;">
                     <form action="/music/songlisten/{{song.song_id}}" method="post">{% csrf_token %}
                         <input type="hidden" name="song_id" value="{{song.song_id}}">
-                        <button type="submit" class="btn btn-outline-danger"> Add to ListenLater</button>
+                        <button type="submit" class="magic-btn"> Add to ListenLater</button>
                     </form>
-                    <a href="/media/{{song.song}}"><button class="btn btn-outline-danger"> Download Here</button></a>
+                    <a href="/media/{{song.song}}"><button class="magic-btn"><span>D</span> Download Here</button></a>
                 </div>
             </div>
         </div>
@@ -54,6 +58,6 @@
 </div>
 
 
-<script src="/static/css/play.js"></script>
+<script src="/static/javascript/play.js"></script>
 
 {% endblock body %}
