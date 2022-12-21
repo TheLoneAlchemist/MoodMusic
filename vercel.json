@@ -4,7 +4,7 @@
       {
         "src": "MoodMusic/wsgi.py",
         "use": "@vercel/python",
-        "config": { "maxLambdaSize": "50mb", "runtime": "python3.9" }
+        "config": { "maxLambdaSize": "100mb", "runtime": "python3.9" }
       },
       {
         "src": "build_files.sh",
