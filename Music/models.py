@@ -20,7 +20,7 @@ class Song(models.Model):
 class Listenlater(models.Model):
     listen_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    song_id = models.CharField(max_length=10000000,default="")
+    song_id = models.CharField(max_length=104857,default="")
 
     def __str__(self) -> str:
         songobj = Song.objects.filter(song_id = self.song_id).first()
@@ -33,7 +33,7 @@ class Listenlater(models.Model):
 class History(models.Model):
     history_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    music_id = models.CharField(max_length=10000000,default="")
+    music_id = models.CharField(max_length=104857,default="")
 
     def __str__(self) -> str:
         songobj = Song.objects.filter(song_id = self.music_id).first()
@@ -49,7 +49,7 @@ class History(models.Model):
 class Channel(models.Model):
     channel_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length= 3999)
-    music = models.CharField(max_length=19999999)
+    music = models.CharField(max_length=1048)
 
     def __str__(self) -> str:
         return f"{self.name}"

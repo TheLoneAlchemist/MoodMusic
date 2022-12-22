@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-5g=nplhks5c@1ja_bwic=7bf@3ajitkohv9%jk6j8y4jtja9#s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','.now.sh']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh','127.0.0.1']
 
 
 # Application definition
@@ -59,7 +59,7 @@ ROOT_URLCONF = 'MoodMusic.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates")],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,12 +78,25 @@ WSGI_APPLICATION = 'MoodMusic.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+
+#     }
+# }
+
+# for production deployment
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-        
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'Master@database123',
+        'HOST': 'db.rbcrxtvmkgrrqymhojve.supabase.co',
+        'PORT': '5432',
+
+    }
 }
 
 
@@ -123,14 +136,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# manual code 
+# manual code
 STATICFILES_DIRS = os.path.join(BASE_DIR, "static"),
 # STATIC_ROOT =os.path.join(BASE_DIR,'staticfiles_build','static')
-STATIC_ROOT =BASE_DIR / 'staticfiles_build' / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
 
-MEDIA_URL= '/media/'
-MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -138,15 +151,4 @@ MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-
-
 # Templates Directory
-
-
-
-
-
-
-
-
