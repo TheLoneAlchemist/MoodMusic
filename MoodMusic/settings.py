@@ -13,6 +13,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+# for cloudinary upload API 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
     # 'django.contrib.postgres',
 
 ]
@@ -75,7 +85,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'MoodMusic.wsgi.application'
 
 
-# Database
+# Database for local envirments
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 # DATABASES = {
@@ -142,8 +152,24 @@ STATICFILES_DIRS = os.path.join(BASE_DIR, "static"),
 STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# For cloudinary upload setting 
+cloudinary.config( 
+  cloud_name = "depq5oys1", 
+  api_key = "744598955525331", 
+  api_secret = "WZ8l48LYEVrNvVZWAotmbJeRryM" 
+)
+
+# Media settings
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
+MEDIA_URL = '/MoodMusic/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+
+# local media setting 
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

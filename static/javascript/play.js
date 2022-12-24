@@ -1,5 +1,6 @@
 
-let filepath =document.getElementById('mediasource').getAttribute('src')
+// let filepath =document.getElementById('mediasource').getAttribute('src')
+let filepath =document.getElementsByTagName('source').mediasource.src
 // console.log("file: ", filepath);
 
 document.getElementById("playimgid").src = document.getElementById("imgsrc").src;

@@ -109,7 +109,7 @@
     </div>
 
 
-
+    {% load cloudinary %}
 
     <div>
         <main class="form-upload w-100 m-auto">
@@ -121,33 +121,40 @@
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Song Title</label>
-                    <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" required>
+                    <!-- <input type="text" class="form-control" id="floatingInput" name="title" placeholder="Title" required> -->
+                    {{form.title}}
                 </div>
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Artist</label>
-                    <input type="text" class="form-control" id="floatingInput" name="artist" placeholder="Artist">
+                    <!-- <input type="text" class="form-control" id="floatingInput" name="artist" placeholder="Artist"> -->
+                    {{form.artist}}
                 </div>
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Tag</label>
-                    <input type="text" class="form-control" id="floatingInput" name="tag" placeholder="Tag">
+                    <!-- <input type="text" class="form-control" id="floatingInput" name="tag" placeholder="Tag"> -->
+                    {{form.tag}}
                 </div>
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">copyrights</label>
-                    <input type="text" class="form-control" id="floatingInput" name="copyrights"
-                        placeholder="copyrights">
+                    <!-- <input type="text" class="form-control" id="floatingInput" name="copyrights"
+                        placeholder="copyrights"> -->
+                    {{form.copyrights}}
                 </div>
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Image</label>
-                    <input accept=".jpg, .jpeg, .png" type="file" class="form-control" id="floatingInput" name="image"
-                        placeholder="Images" required>
+                    <!-- <input accept=".jpg, .jpeg, .png" type="file" class="form-control" id="floatingInput" name="image"
+                        placeholder="Images" required> -->
+
+                    {{form.image}}
                 </div>
 
                 <div class="form-floating">
                     <label class="form-floating" for="floatingInput">Song</label>
-                    <input type="file" class="form-control" id="floatingInput" name="song" placeholder="Song" required>
+                    <!-- <input type="file" class="form-control" id="floatingInput" name="song" placeholder="Song" required> -->
+                    {{form.song}}
                 </div>
 
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Upload</button>

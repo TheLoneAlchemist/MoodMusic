@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 class Song(models.Model):
     song_id = models.AutoField(primary_key=True)
@@ -8,8 +8,10 @@ class Song(models.Model):
     artist = models.CharField(max_length=200, blank=True)
     tags = models.CharField(max_length=30,blank=True)
     copyrights = models.CharField(max_length=100,null=True)
-    image = models.ImageField(upload_to ='images')
-    song = models.FileField(upload_to='musics')
+    # image = models.ImageField(upload_to ='images')
+    # song = models.FileField(upload_to='musics')
+    image = CloudinaryField( default="",folder="MoodMusic/images/", resource_type = 'image')
+    song = CloudinaryField(default = "", resource_type ='raw', folder="MoodMusic/musics/")
 
 
     def __str__(self) -> str:

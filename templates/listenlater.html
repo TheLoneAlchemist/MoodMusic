@@ -22,7 +22,7 @@
             <div class="card mb-3" style="max-width: 940px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="/media/{{i.image}}" class="img-fluid rounded-start" alt="..." name="imgsrc">
+                        <img src="{{i.image.url}}" class="img-fluid rounded-start" alt="..." name="imgsrc">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -33,7 +33,7 @@
                             <a href="/music/songlisten/{{i.song_id}}"> <button class="btn btn-outline-danger">Go to Song</button></a>
 
                             
-                                <source src="/media/{{i.song}}" name="mediasource">
+                                <source src="{{i.song.url}}" name="mediasource">
                                 <button class="btn btn-outline-danger" id="ms" name="btns"> Play Now</button>
                             
 

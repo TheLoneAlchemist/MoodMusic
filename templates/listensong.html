@@ -29,7 +29,7 @@
 
     <div class="row my-4 mx-3">
         <div class="col-md-6">
-            <img src="/media/{{song.image}}" alt="" height="100%" width="100%" id="imgsrc">
+            <img src="{{song.image.url}}" alt="" height="100%" width="100%" id="imgsrc">
         </div>
         <div class="col-md-6">
             <h2 style="color:red;">{{song.title}}</h2>
@@ -38,7 +38,7 @@
             <h3 style="color: rgb(37, 129, 235);">copyrights : {{song.copyrights}}</h3>
             <div>
                 <audio controls style="padding-top: 2%;">
-                    <source src="/media/{{song.song}}" id="mediasource">
+                    <source src="{{song.song.url}}" id="mediasource">
                 </audio>
             </div>
 
@@ -48,7 +48,7 @@
                         <input type="hidden" name="song_id" value="{{song.song_id}}">
                         <button type="submit" class="magic-btn"> Add to ListenLater</button>
                     </form>
-                    <a href="/media/{{song.song}}"><button class="magic-btn"><span>D</span> Download Here</button></a>
+                    <a href="{{song.song.url}}"><button class="magic-btn"><span>D</span> Download Here</button></a>
                 </div>
             </div>
         </div>

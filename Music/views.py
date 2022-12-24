@@ -1,11 +1,19 @@
 from pyexpat.errors import messages
 from django import urls
+import django
 from django.shortcuts import redirect, render
 from .models import Song, Listenlater, History, Channel
 from django.contrib.auth.models import User
 from django.db.models import Case, When
 from django.contrib import messages
 # Create your views here.
+# cloudinary import
+from django import forms
+from cloudinary.forms import cl_init_js_callbacks
+from .forms import UplaodForm
+
+
+
 
 
 def Play(request):
@@ -101,41 +109,77 @@ def ChannelFuc(request, cname):
 
     return render(request, 'channel.html', {"channel": channel, "song": song})
 
+# for local env
+# def Upload(request):
+#     if request.user.is_anonymous:
+#         return redirect("/login")
+
+#     if(request.method == "POST"):
+#         try:
+#             title = request.POST.get('title')
+#             artist = request.POST.get('artist')
+#             tag = request.POST.get('tag')
+#             copyrights = request.POST.get('copyrights')
+#             image = request.FILES['image']
+#             song = request.FILES['song']
+
+#             # creating Song object to save song
+#             SongObj = Song(title=title, artist=artist, tags=tag,
+#                         song=song, image=image, copyrights=copyrights)
+#             SongObj.save()
+
+#             # creating music_id object to store in the Channel of requested user(login user)
+#             music_id = SongObj.song_id
+#             ChannelObj = Channel.objects.filter(name=request.user).first()
+#             ChannelObj.music += f"| {music_id}"
+#             ChannelObj.save()
+#             messages.success(request, "Your file uploaded sucessfully !")
+#         except Exception as e:
+#             print("_______________________________________________")
+#             print(e)
+#             print("_______________________________________________")
+#             messages.error(request,"Something went wrong! ")
+#         finally:
+
+#             return redirect('/music/upload')
+
+#     return render(request, 'upload.html')
+
 
 def Upload(request):
     if request.user.is_anonymous:
-        return redirect("/login")
+        return redirect('/login')
 
-    if(request.method == "POST"):
+    if (request.method == "POST"):
+        context = dict(backend_form = UplaodForm())
         try:
-            title = request.POST.get('title')
-            artist = request.POST.get('artist')
-            tag = request.POST.get('tag')
-            copyrights = request.POST.get('copyrights')
-            image = request.FILES['image']
-            song = request.FILES['song']
-
-            # creating Song object to save song
-            SongObj = Song(title=title, artist=artist, tags=tag,
-                        song=song, image=image, copyrights=copyrights)
-            SongObj.save()
+            form = UplaodForm(request.POST,request.FILES)
+            context['posted'] = form.instance
+            if form.is_valid():
+                form.save()
 
             # creating music_id object to store in the Channel of requested user(login user)
+            SongObj = Song.objects.filter(title = request.POST.get('title')).first()
             music_id = SongObj.song_id
+            print(music_id,"------------------------------------")
             ChannelObj = Channel.objects.filter(name=request.user).first()
             ChannelObj.music += f"| {music_id}"
             ChannelObj.save()
             messages.success(request, "Your file uploaded sucessfully !")
+                
         except Exception as e:
-            print("_______________________________________________")
+            print("____________________________________")
             print(e)
-            print("_______________________________________________")
-            messages.error(request,"Something went wrong! ")
+            print("____________________________________")
+            messages.error(request,"Something went Wrong!")
         finally:
+            return redirect('/upload')
 
-            return redirect('/music/upload')
+    form = UplaodForm()
+    ctx = {'form':form}
+    return render(request,'upload.html',ctx)
 
-    return render(request, 'upload.html')
+
 
 
 def Search(request):
