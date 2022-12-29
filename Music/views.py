@@ -24,7 +24,7 @@ def Play(request):
 
 def Songlist(request):
     songObj = Song.objects.all()
-    paginator = Paginator(songObj,2)
+    paginator = Paginator(songObj,6)
     page_number = request.GET.get('page')
     songs = paginator.get_page(page_number)
     return render(request, "songlist.html", {'songs': songs})
@@ -65,7 +65,7 @@ def Listenlaterfun(request):
     preserved = Case(*[When(pk=pk, then=pos)
                      for pos, pk in enumerate(listenId)])
     songObj = Song.objects.filter(song_id__in=listenId).order_by(preserved)
-    paginator = Paginator(songObj,2)
+    paginator = Paginator(songObj,6)
     page_number = request.GET.get('page')
     songs = paginator.get_page(page_number)
     return render(request, "listenlater.html", {'songs': songs})
@@ -97,7 +97,7 @@ def Historyfun(request):
     preserved = Case(*[When(pk=pk, then=pos)
                      for pos, pk in enumerate(historyIds)])
     songObj = Song.objects.filter(song_id__in=historyIds).order_by(preserved)
-    paginator = Paginator(songObj,2)
+    paginator = Paginator(songObj,6)
     page_number = request.GET.get('page')
     songs = paginator.get_page(page_number)
     return render(request, "history.html", {'songs': songs})
