@@ -12,5 +12,6 @@ urlpatterns = [
     path('login', views.LoginUser, name='login'),
     path('logout', views.LogoutUser, name='logout'),
     path('signup', views.SignupUser, name='signup'),
+    path('forget', views.ForgetPass, name='forget'),
     
 ]

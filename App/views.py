@@ -82,16 +82,23 @@ def LoginUser(request):
         user = authenticate(username=Username, password=Pasword)
         if user is not None:
             login(request, user)
+            messages.success(request,f"Hii! Welcome Back {user}")
             return redirect("/")
         else:
-            return render(request, "login.html")
+            messages.error(request,"You enterd wrong details!, Kindly put right information.")
+            return redirect("login")
 
     return render(request, "login.html")
 
 
 def LogoutUser(request):
     logout(request)
-    return render(request, "logout.html")
+    messages.success(request,"You has been logout")
+    return redirect('/')
+
+def ForgetPass(request):
+    messages.info(request,"Kindly Enter the issue below. We will reach you soon!")
+    return redirect('/contact')
 
 
 def SignupUser(request):

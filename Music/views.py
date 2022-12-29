@@ -1,6 +1,5 @@
 from pyexpat.errors import messages
 from django import urls
-import django
 from django.shortcuts import redirect, render
 from .models import Song, Listenlater, History, Channel
 from django.contrib.auth.models import User
@@ -11,7 +10,8 @@ from django.contrib import messages
 from django import forms
 from cloudinary.forms import cl_init_js_callbacks
 from .forms import UplaodForm
-
+#pagination
+from django.core.paginator import Paginator
 
 
 
@@ -24,9 +24,10 @@ def Play(request):
 
 def Songlist(request):
     songObj = Song.objects.all()
-
-    return render(request, "songlist.html", {'song': songObj})
-
+    paginator = Paginator(songObj,2)
+    page_number = request.GET.get('page')
+    songs = paginator.get_page(page_number)
+    return render(request, "songlist.html", {'songs': songs})
 
 def Songlisten(request, id):
     if request.method == "POST":
@@ -63,8 +64,11 @@ def Listenlaterfun(request):
 
     preserved = Case(*[When(pk=pk, then=pos)
                      for pos, pk in enumerate(listenId)])
-    song = Song.objects.filter(song_id__in=listenId).order_by(preserved)
-    return render(request, "listenlater.html", {'song': song})
+    songObj = Song.objects.filter(song_id__in=listenId).order_by(preserved)
+    paginator = Paginator(songObj,2)
+    page_number = request.GET.get('page')
+    songs = paginator.get_page(page_number)
+    return render(request, "listenlater.html", {'songs': songs})
 
 
 def Historyfun(request):
@@ -73,7 +77,7 @@ def Historyfun(request):
 
     if request.method == "POST":
         music_id = request.POST['music_id']
-        print(music_id)
+        print(music_id,"_______________")
         userhistory = History.objects.filter(user=request.user)
         for i in userhistory:
             if music_id == i.music_id:
@@ -92,9 +96,11 @@ def Historyfun(request):
 
     preserved = Case(*[When(pk=pk, then=pos)
                      for pos, pk in enumerate(historyIds)])
-    song = Song.objects.filter(song_id__in=historyIds).order_by(preserved)
-
-    return render(request, "history.html", {'history': song})
+    songObj = Song.objects.filter(song_id__in=historyIds).order_by(preserved)
+    paginator = Paginator(songObj,2)
+    page_number = request.GET.get('page')
+    songs = paginator.get_page(page_number)
+    return render(request, "history.html", {'songs': songs})
 
 
 def ChannelFuc(request, cname):
@@ -105,9 +111,11 @@ def ChannelFuc(request, cname):
     musics = channel.music.split("|")[1:]
     print(musics)
     preserved = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(musics)])
-    song = Song.objects.filter(song_id__in=musics).order_by(preserved)
-
-    return render(request, 'channel.html', {"channel": channel, "song": song})
+    songObj = Song.objects.filter(song_id__in=musics).order_by(preserved)
+    paginator = Paginator(songObj,6)
+    page_number = request.GET.get('page')
+    songs = paginator.get_page(page_number)
+    return render(request, 'channel.html', {"channel": channel, "songs": songs})
 
 # for local env
 # def Upload(request):
@@ -190,7 +198,11 @@ def Search(request):
         # print("#########################")
         allsong = Song.objects.all()
         print(allsong.filter(title__icontains=searchKeyword))
-    return render(request, 'searchresult.html', {"keyword": searchKeyword, "songs": searchedSong})
+
+        paginator = Paginator(searchedSong,6)
+        page_number = request.GET.get('page')
+        songs = paginator.get_page(page_number)
+    return render(request, 'searchresult.html', {"keyword": searchKeyword, "songs": songs})
 
 
 def profile(request):

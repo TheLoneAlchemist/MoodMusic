@@ -11,6 +11,22 @@
 
 
 </head>
+<body>
+    <!-- Message Interation  -->
+    
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+            <strong> {{message}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"> &times;</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!-- Message Interation End -->
+    </div>
 
 
     <div class="login_form_container">
@@ -32,7 +48,7 @@
                 </div>
                 <div class="fotter">
                     
-                    <a href="/">Forgot Password ?</a>
+                    <a href="/forget">Forgot Password ?</a>
                     <a href="/signup">Sign Up</a>
                 </div>
             </div>

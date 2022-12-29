@@ -88,7 +88,7 @@ i:hover{
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 1.5em;
+    gap: 1em;
     color: var(--secondary-color);
 }
 .control-buttons{
@@ -158,4 +158,33 @@ i:hover{
 }
 .volume-bar .progress-bar:hover .progress::after{
     --size: .8em;
+}
+
+
+
+@media screen and (max-width:992px) {
+    .song-description{
+        margin: 4.2em;
+        flex: none;
+        margin-bottom: 50%;
+    }
+    .title{
+
+        -webkit-box-orient: horizontal;
+        -webkit-line-clamp: 1;
+        padding-bottom: 7px;
+        direction: ltr;
+        text-decoration:solid;
+    }
+
+    .artist{
+        visibility: hidden;
+    }
+
+    .icons{
+        visibility: hidden;
+    }
+    .other-features{
+        visibility: hidden;
+    }
 }

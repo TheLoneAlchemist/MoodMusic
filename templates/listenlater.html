@@ -8,48 +8,113 @@
 
 {% include 'navbar.html' %}
 
+<style>
+    .pagination {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-top: 10px;
+        padding-bottom: 8px;
+    }
+
+    .pagination button {
+        border-radius: 14px;
+        position: relative;
+        height: 25px;
+        width: 67px;
+        border-color: cornflowerblue;
+        background: white;
+    }
+
+    .pagination a {
+        text-decoration: none;
+    }
+
+    .pagination button:hover {
+        background: rgb(146, 241, 117);
+    }
+</style>
+
 <h1 style="text-align: center; color: aqua;"> {{request.user}} Listen Later</h1>
 
-{% if song|length < 1%} <h3 style="color: blueviolet; text-align: center; margin-top: 3%;"> You don't have any Song in
+{% if songs|length < 1%} <h3 style="color: blueviolet; text-align: center; margin-top: 3%;"> You don't have any Song in
     Listen Later </h1>
 
-    {% endif %}
+    {% else %}
+
+    <link rel="stylesheet" href="/static/css/home.css">
 
     <div class="container">
+        <div>
+            <div class="hold">
+                <div class="wrapper">
+                    <h1> Here something to blown You</h1>
+                    <div class="cards-in">
+                        {% for i in songs reversed %}
+                        <div class="card-in" name="btns">
 
-        <div class="container my-3">
-            {% for i in song reversed%}
-            <div class="card mb-3" style="max-width: 940px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{i.image.url}}" class="img-fluid rounded-start" alt="..." name="imgsrc">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title" style="color:blueviolet;" name="titlesrc">Title: {{i.title}}</h5>
-                            <p class="card-text"> Tag: {{i.tags}}</p>
-                            <p class="card-text"> copyrights: {{i.copyrights}}</p>
-                            <p class="card-text"><small class="text-muted" name="artistsrc">Artist: {{i.artist}}</small></p>
-                            <a href="/music/songlisten/{{i.song_id}}"> <button class="btn btn-outline-danger">Go to Song</button></a>
+                            <div class="overlayer">
+                                <i class="far fa-play-circle"></i>
+                            </div>
 
-                            
-                                <source src="{{i.song.url}}" name="mediasource">
-                                <button class="btn btn-outline-danger" id="ms" name="btns"> Play Now</button>
-                            
-
+                            <img src="{{i.image.url}}" alt="" name=imgsrc>
+                            {% if request.user.is_authenticated %}
+                            <form action="/music/history" method="post">{% csrf_token %}
+                                <input type="hidden" name="music_id" value="{{i.song_id}}">
+                                <div class="title-in">
+                                    <a href="/music/songlisten/{{i.song_id}}"><button type="submit" class="hbtn">{{i.title}}</button></a>
+                                </div>
+                            </form>
+                            {% else %}
+                            <div class="title-in">
+                                <a href="/music/songlisten/{{i.song_id}}"><button class="hbtn">{{i.title}}</button></a>
+                            </div>
+                            {% endif %}
                         </div>
+                        <div class="othercard" hidden>
+                            <p class="card-text" name="titlesrc">{{i.title}}</p>
+                            <p class="card-text" name="artistsrc">{{i.artist}}</p>
+                        </div>
+                        <source src="{{i.song.url}}" name="mediasource">
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
+    </div>
+    {% endif %}
+    <div style="margin: 15px;"></div>
 
 
+    <div class="pagination">
+        <span class="step-links">
+            {% if songs.has_previous %}
+            <button>
+                <a href="?page=1">&laquo; First</a>
+            </button>
+            <button>
+                <a href="?page={{ songs.previous_page_number }}">Previous</a>
+            </button>
+            {% endif %}
+            <span class="current">
+                Page {{ songs.number }} of {{ songs.paginator.num_pages }}.
+            </span>
+            {% if songs.has_next %}
+            <button>
+                <a href="?page={{ songs.next_page_number }}">Next</a>
+            </button>
+            <button>
+                <a href="?page={{ songs.paginator.num_pages }}">Last &raquo;</a>
+            </button>
+
+            {% endif %}
+        </span>
     </div>
 
 
 
     <script src="/static/javascript/listenlaters.js"></script>
-    <!-- <script src="/static/css/play.js"></script> -->
 
     {% endblock body %}

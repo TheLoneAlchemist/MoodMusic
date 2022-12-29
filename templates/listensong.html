@@ -43,11 +43,12 @@
             </div>
 
             <div style="padding-top: 2%;">
-                <div class="row" style=" flex-wrap: nowrap; margin-right: 65%;">
+                <div class="row" style=" flex-wrap: nowrap;margin-right: 71%;">
                     <form action="/music/songlisten/{{song.song_id}}" method="post">{% csrf_token %}
                         <input type="hidden" name="song_id" value="{{song.song_id}}">
                         <button type="submit" class="magic-btn"> Add to ListenLater</button>
                     </form>
+                    <div></div>
                     <a href="{{song.song.url}}"><button class="magic-btn"><span>D</span> Download Here</button></a>
                 </div>
             </div>
