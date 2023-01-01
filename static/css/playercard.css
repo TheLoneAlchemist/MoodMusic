@@ -164,9 +164,9 @@ i:hover{
 
 @media screen and (max-width:992px) {
     .song-description{
-        margin: 4.2em;
         flex: none;
-        margin-bottom: 50%;
+        margin-bottom: -100%;
+        margin-left: 33%;
     }
     .title{
 
