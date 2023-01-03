@@ -181,7 +181,7 @@ def Upload(request):
             print("____________________________________")
             messages.error(request,"Something went Wrong!")
         finally:
-            return redirect('/upload')
+            return redirect('/music/upload')
 
     form = UplaodForm()
     ctx = {'form':form}
