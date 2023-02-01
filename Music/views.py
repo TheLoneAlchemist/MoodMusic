@@ -1,25 +1,95 @@
 from pyexpat.errors import messages
 from django import urls
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect, render
 from .models import Song, Listenlater, History, Channel
 from django.contrib.auth.models import User
 from django.db.models import Case, When
 from django.contrib import messages
-# Create your views here.
 # cloudinary import
 from django import forms
 from cloudinary.forms import cl_init_js_callbacks
 from .forms import UplaodForm
 #pagination
 from django.core.paginator import Paginator
+#serializer
+from django.core import serializers
+#help funtions
+from .help import EmotionFromImage,base64Toimage
 
 
+
+def getpage(queryset, page):
+    '''
+    first parameter is a queryset\n
+    second parameter is a the pagenumber
+    if page == last page, then it return None
+    '''
+    paginator = Paginator(queryset, 2)
+    try:
+        if paginator.validate_number(page):
+
+            songs = paginator.get_page(page)
+            print(type(songs.paginator.num_pages))
+            print(type(page))
+            return songs
+    except Exception as e:
+        print('getpage funtion Expection::::::',e)
+        return None
+
+def GetEmotion(request):
+    if request.method == "GET":
+        return HttpResponseBadRequest("BadRequest Bro...")
+    if request.method == "POST":
+        image64 = request.POST['image64']
+        if image64 == "":
+            msg = "Please Send Image Data..."
+            return HttpResponse(msg)
+        try:
+            print("here............")
+            decodeImage = base64Toimage(image64[21:], f'{request.user}[1]')
+            if decodeImage is not None:
+                emotion = EmotionFromImage(decodeImage)
+                print(emotion)
+                if emotion is None:
+                    return HttpResponse('face not found!')
+                else:
+                    songobjs = Song.objects.filter(tags=emotion)
+                    print(songobjs)
+                    songs = getpage(songobjs, 1)
+                    songserialize = serializers.serialize(
+                        'json', songs.object_list)
+                    return JsonResponse({'emotion': emotion, 'songs': songserialize}, safe=False)
+            else:
+                return HttpResponse('image not found!')
+        except Exception as e:
+            print(e)
+            return HttpResponse('something went wrong! Maybe your face is not properly captured')
 
 
 def Play(request):
-    songobj = Song.objects.all().first()
+    songobj = Song.objects.all()
+    # return render(request,'songlist1.html',{'songs':songobj})
+    paginator = Paginator(songobj, 2)
+    songs = paginator.get_page(1)
 
-    return render(request, "play.html", {'song': songobj})
+    if request.method == "POST":
+
+        data = request.POST
+        print(data, "------>>>>>>>>>>>>>")
+        pagenumber = request.POST.get('page')
+        emotion = request.POST.get('emotion')
+        
+        songobjs = Song.objects.filter(tags=emotion)
+        songs = getpage(songobjs,pagenumber)
+        if songs is not None:
+            songserialize = serializers.serialize('json', songs.object_list)
+            print(songserialize)
+            return JsonResponse({ 'songs': songserialize}, safe=False)
+        else:
+            return JsonResponse({'songs':'NoMoreSong'})
+
+    return render(request, "play.html", {'songs': songs})
 
 
 def Songlist(request):

@@ -19,6 +19,14 @@
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  <!-- jquery  -->
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+  <!-- tailwind css cdn  -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  {% block headers %}{% endblock headers %}
 
 </head>
 
@@ -51,5 +59,7 @@
   {% block body %}{% endblock body %}
 
 </body>
+
+{% block scripts %}{% endblock scripts %}
 
 </html>

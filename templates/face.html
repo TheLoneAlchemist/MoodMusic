@@ -1,0 +1,73 @@
+<style>
+    #canvas {
+        display: none;
+    }
+</style>
+
+
+
+<div class="container">
+    <form id="post-form">
+        {% csrf_token %}
+
+        <div class="container">
+            <div class="p-3 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10">
+                <!--Card 1-->
+                <div class="rounded overflow-hidden shadow-lg">
+                    <div class="px-6 py-4">
+                        <div class="font-bold text-xl mb-2">Live camera</div>
+                        <div class="camera">
+                            <video autoplay id="video" width="320" height="240"> Stream is not available</video>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Card 2-->
+                <div class="rounded overflow-hidden shadow-lg">
+                    <div class="px-6 py-4">
+                        <div class="font-bold text-xl mb-2">captured image</div>
+                        <canvas id="canvas"></canvas>
+                        <div class="output">
+                            <img id="photo" alt="captured image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center" hidden>
+            <textarea id="imgstring"></textarea>
+            <!-- <input type="text" id="csrf" value="{{csrf_token}}"> -->
+        </div>
+
+        <div class="container px-1 py-2" style="display: flex; justify-content: center;"><button type="button"
+                id="startbutton"
+                class="inline-block px-6 py-2 border-2 border-green-500 text-green-500 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Take
+                Photo</button> </div>
+
+
+        <div class="container">
+            <section class="h-20">
+                <div class="container px-3 py-3 h-full">
+                    <div class="flex justify-center items-center flex-wrap h-2 g-6 text-gray-800">
+                        <div class="flex justify-between items-center">
+
+                            <!-- Submit button -->
+                            <button type="submit"
+                                class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
+                                data-mdb-ripple="true" data-mdb-ripple-color="light" id="sub">
+                                Get Emotion
+                            </button>
+
+                        </div>
+            </section>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<script src="/static/javascript/face.js"></script>
