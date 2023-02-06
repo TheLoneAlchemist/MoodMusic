@@ -70,7 +70,7 @@ def GetEmotion(request):
 def Play(request):
     songobj = Song.objects.all()
     # return render(request,'songlist1.html',{'songs':songobj})
-    paginator = Paginator(songobj, 2)
+    paginator = Paginator(songobj, 4)
     songs = paginator.get_page(1)
 
     if request.method == "POST":
@@ -94,10 +94,21 @@ def Play(request):
 
 def Songlist(request):
     songObj = Song.objects.all()
-    paginator = Paginator(songObj,6)
-    page_number = request.GET.get('page')
-    songs = paginator.get_page(page_number)
-    return render(request, "songlist.html", {'songs': songs})
+    paginator = Paginator(songObj, 4)
+    songpage = paginator.get_page(1)
+
+    if request.method == "POST":
+
+        pagenumber = request.POST.get('page')
+        
+        songs = getpage(songObj,pagenumber)
+        if songs is not None:
+            songserialize = serializers.serialize('json', songs.object_list)
+            print(songserialize)
+            return JsonResponse({ 'songs': songserialize}, safe=False)
+        else:
+            return JsonResponse({'songs':'NoMoreSong'})
+    return render(request, "songlist.html", {'songs': songpage})
 
 def Songlisten(request, id):
     if request.method == "POST":

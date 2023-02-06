@@ -1,193 +1,183 @@
 {% extends 'base.html' %}
 
 {% block title %} Home{% endblock title %}
-
-{% block body %}
+{% block headerin %}
 {% include 'playercard.html' %}
+{% endblock headerin %}
+{% block body %}
 
-{% include 'navbar.html' %}
-<!-- carousel start -->
 
-<!-- carousel end -->
+<!-- Container for demo -->
+<div class="container my-10 px-6 mx-auto">
 
-<link rel="stylesheet" href="/static/css/home.css">
-<div class="container">
-    <div>
-        <!-- Recently Added Song start -->
-        <div class="hold">
-            <div class="wrapper">
-                <h1> Recently Added</h1>
-                <div class="cards-in">
-                    {% for i in song reversed %}
-                    <div class="card-in" name="btns">
+    <!-- Section: Design Block -->
+    <section class="mb-32 text-gray-800 text-center lg:text-left">
+        <style>
+            @media (min-width: 992px) {
+                .rotate-lg-6 {
+                    transform: rotate(6deg);
+                }
+            }
+        </style>
 
-                        <div class="overlayer">
-                            <i class="far fa-play-circle"></i>
-                        </div>
+        <div class="md:px-6 py-12 md:px-12">
+            <div class="container mx-auto xl:px-32">
+                <div class="grid lg:grid-cols-2 flex items-center">
+                    <div class="md:mt-12 lg:mt-0 mb-12 lg:mb-0">
+                        <div class="relative block rounded-lg shadow-lg px-6 pt-12 pb-6 md:px-12 lg:-mr-14" style="
+                    background: hsla(0, 0%, 100%, 0.55);
+                    backdrop-filter: blur(30px);
+                    z-index: 1;
+                  ">
+                            <h2 class="text-3xl font-bold mb-6">Why Mood Music ?</h2>
+                            <p class="text-gray-500 mb-6">
+                                mood music delivers excellent quality music with facial emotion detection system. And we
+                                are always trying to improve our user experience.
+                            </p>
 
-                        <img src="{{i.image.url}}" alt="" name=imgsrc>
+                            <div class="grid md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-x-6">
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Mood detection
+                                    </p>
+                                </div>
 
-                        {% if request.user.is_authenticated %}
-                        <form action="/music/history" method="post">{% csrf_token %}
-                            <input type="hidden" name="music_id" value="{{i.song_id}}">
-                            <div class="title-in">
-                                <a href="/music/songlisten/{{i.song_id}}"><button type="submit"
-                                        class="hbtn">{{i.title}}</button></a>
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Music Analysis
+                                    </p>
+                                </div>
+
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>High quality
+                                    </p>
+                                </div>
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Always updates
+                                    </p>
+                                </div>
+
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Support 24/7
+                                    </p>
+                                </div>
+
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Mobile Reponsive
+                                    </p>
+                                </div>
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Channels
+                                    </p>
+                                </div>
+
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Excellent UI
+                                    </p>
+                                </div>
+
+                                <div class="mb-6">
+                                    <p class="flex items-center">
+                                        <svg class="w-4 h-4 mr-2 text-gray-900" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 512 512">
+                                            <path fill="currentColor"
+                                                d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
+                                            </path>
+                                        </svg>Dark Mode
+                                    </p>
+                                </div>
                             </div>
-                        </form>
-                        {% else %}
-                        <div class="title-in">
-                            <a href="/music/songlisten/{{i.song_id}}"><button class="hbtn">{{i.title}}</button></a>
+                            <div class="">
+                                <a href="/music/play">
+                                    <button type="button"
+                                        class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                                        Let's know your mood</button>
+                                </a>
+                            </div>
                         </div>
-                        {% endif %}
-
-
                     </div>
-                    <div class="othercard" hidden>
-                        <p class="card-text" name="titlesrc">{{i.title}}</p>
-                        <p class="card-text" name="artistsrc">{{i.artist}}</p>
+                    <div class="md:mb-12 lg:mb-0">
+                        <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/121.jpg"
+                            class="w-full rounded-lg shadow-lg rotate-lg-6" alt="" />
                     </div>
-                    <source src="{{i.song.url}}" name="mediasource">
-                    {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Recently Added Song end -->
-    {% if user.is_authenticated %}
-    <!-- History Song start -->
+    </section>
+    <!-- Section: Design Block -->
 
-    <div class="hold">
-        <div class="wrapper">
-            <h1> {{request.user}}'s History</h1>
-            {% if historys|length < 1 %} <h3 style="color: white; text-align: center; margin-top: 3%;"> You don't have
-                any
-                Song
-                in
-                history </h1>
-                {% endif %}
-
-                <div class="cards-in">
-                    {% for i in historys reversed %}
-                    <div class="card-in" name="btns">
-
-                        <div class="overlayer">
-                            <i class="far fa-play-circle"></i>
-                        </div>
-
-                        <img src="{{i.image.url}}" alt="" name=imgsrc>
-
-                        {% if request.user.is_authenticated %}
-                        <form action="/music/history" method="post">{% csrf_token %}
-                            <input type="hidden" name="music_id" value="{{i.song_id}}">
-                            <div class="title-in">
-                                <a href="/music/songlisten/{{i.song_id}}"><button type="submit"
-                                        class="hbtn">{{i.title}}</button></a>
-                            </div>
-                        </form>
-                        {% else %}
-                        <div class="title-in">
-                            <a href="/music/songlisten/{{i.song_id}}"><button class="hbtn">{{i.title}}</button></a>
-                        </div>
-                        {% endif %}
-                    
-
-                    </div>
-                    <div class="othercard" hidden>
-                        <p class="card-text" name="titlesrc">{{i.title}}</p>
-                        <p class="card-text" name="artistsrc">{{i.artist}}</p>
-                    </div>
-                    <source src="{{i.song.url}}" name="mediasource">
-                    {% endfor %}
-                </div>
-        </div>
-    </div>
-
-    <!-- History Song start -->
-
-    <!-- Listen Later Song start -->
-    <div class="hold">
-        <div class="wrapper">
-            <h1> {{request.user}}'s Listen Later</h1>
-            {% if listenlaters|length < 1 %} <h3 style="color: white; text-align: center; margin-top: 3%;"> You don't
-                have any
-                Song
-                in
-                listenlaters </h1>
-                {% endif %}
-
-                <div class="cards-in">
-                    {% for i in listenlaters reversed %}
-                    <div class="card-in" name="btns">
-
-                        <div class="overlayer">
-                            <i class="far fa-play-circle"></i>
-                        </div>
-
-                        <img src="{{i.image.url}}" alt="" name=imgsrc>
-
-                        {% if request.user.is_authenticated %}
-                        <form action="/music/history" method="post">{% csrf_token %}
-                            <input type="hidden" name="music_id" value="{{i.song_id}}">
-                            <div class="title-in">
-                                <a href="/music/songlisten/{{i.song_id}}"><button type="submit"
-                                        class="hbtn">{{i.title}}</button></a>
-                            </div>
-                        </form>
-                        {% else %}
-                        <div class="title-in">
-                            <a href="/music/songlisten/{{i.song_id}}"><button class="hbtn">{{i.title}}</button></a>
-                        </div>
-                        {% endif %}
-                    
-
-                    </div>
-                    <div class="othercard" hidden>
-                        <p class="card-text" name="titlesrc">{{i.title}}</p>
-                        <p class="card-text" name="artistsrc">{{i.artist}}</p>
-                    </div>
-                    <source src="{{i.song.url}}" name="mediasource">
-                    {% endfor %}
-                </div>
-        </div>
-    </div>
-
-
-    {% endif %}
-    <!-- Listen Later Song end -->
-
-
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <!-- Playlist start -->
-    <div class="hold">
-        <div class="wrapper_2">
-            <h1> Channels</h1>
-            <div class="cards-in">
-                {% for i in channels %}
-                <div class="card-in-p">
-                    <div class="overlayer-p">
-                        <!-- <i class="far fa-play-circle"></i> -->
-                        <!-- <i class="fas fa-list-music"></i> -->
-                        <i class="fa-solid fa-list-music"></i>
-                    </div>
-
-                    <a href="/music/channel/{{i.name}}">
-                        <img src="/static/img/image1.png" alt="..">
-                    </a>
-
-                    <div class="title-in-playlist">
-                        <a href="/music/channel/{{i.name}}">{{i.name}}</a>
-                    </div>
-
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
 </div>
-<!-- Playlist end -->
+<!-- Container for demo  -->
+
+
+
+
+<div class="flex items-center text-center mt-2 justify-content-center">
+    <h2 class="text-gray-600 underline decoration-indigo-500 font-sans hover:text-base text-xl">Music Channels</h2>
+</div>
+
+<!-- component -->
+
+<div class="flex flex-wrap text-center">
+    {% for channel in channels %}
+    <div class="flex w-full flex-col p-6 md:w-1/3 bg-transpirant">
+        <div class="overflow-hidden rounded-lg shadow-sm">
+            <a href="/music/channel/{{channel.name}}">
+                <span class="text-lg font-medium text-gray-700">
+                    <img class="h-60 w-full object-cover" src="/static/img/image2.jpg" alt="Album cover" />
+                    {{channel.name}}</span>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 
 
 

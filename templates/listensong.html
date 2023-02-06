@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}Playing{% endblock title %}
-
+{% block headerin %}
+{% include 'playercard.html' %}
+{% endblock headerin %}
 {% block body %}
 
-{% include 'playercard.html' %}
 
-{% include 'navbar.html' %}
 
 <!-- Listen Later script -->
 {% if message %}
@@ -37,9 +37,8 @@
             <h3 style="color: rgb(37, 129, 235);">Tag : {{song.tags}}</h3>
             <h3 style="color: rgb(37, 129, 235);">copyrights : {{song.copyrights}}</h3>
             <div>
-                <audio controls style="padding-top: 2%;">
                     <source src="{{song.song.url}}" id="mediasource">
-                </audio>
+                
             </div>
 
             <div style="padding-top: 2%;">

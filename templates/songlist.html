@@ -2,109 +2,89 @@
 
 {% block title %}Song List{% endblock title %}
 
-
+{% block headerin %}
+{% include 'playercard.html' %}
+<div id="notify" hidden class="bg-purple-100 rounded-lg py-4 px-4 mb-4 text-base text-purple-700 mb-3" role="alert">
+    <p id="msg"></p>
+</div>
+{% endblock headerin %}
 {% block body %}
 
-{% include 'playercard.html' %}
-{% include 'navbar.html' %}
-<style>
-    .pagination {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        padding-top: 30px;
-        padding-bottom: 8px;
-    }
-    .pagination button{
-        border-radius: 14px;
-        position: relative;
-        height: 25px;
-        width: 67px;
-        border-color: cornflowerblue;
-        background:white;
-    }
 
-    .pagination a{
-        text-decoration: none;
-    }
-    .pagination button:hover{
-        background: rgb(146, 241, 117);
-    }
-</style>
-<link rel="stylesheet" href="/static/css/home.css">
 
-<div class="container">
-    <div>
-        <div class="hold">
-            <div class="wrapper">
-                <h1> Here something to blown You</h1>
-                <div class="cards-in">
-                    {% for i in songs reversed %}
-                    <div class="card-in" name="btns">
 
-                        <div class="overlayer">
-                            <i class="far fa-play-circle"></i>
+
+<div class="container mx-auto px-6 py-16">
+    <div class="mx-auto sm:w-1/2 lg:w-5/12 xl:w-[30%]">
+        <div>
+            <h1 class="tex-3xl">Your Library</h1>
+            <p class="mt-2 text-gray-600">Listen to your favorite one!</p>
+        </div>
+
+        <div class="mt-4" id="sixth">
+            {% for i in songs reversed %}
+
+            <div class="relative flex flex-col justify-end overflow-hidden rounded-b-xl pt-6">
+                <div name="btns" class="group relative flex justify-between rounded-xl cursor-pointer bg-rose-200 before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-rose-600 before:opacity-0 before:transition
+                    before:duration-500 hover:before:opacity-100">
+                    <div class="relative space-y-1 p-4">
+                        <h4 class="text-lg text-amber-900" name="titlesrc"> {{i.title}} </h4>
+                        <div class="relative h-6 text-sm text-amber-800">
+                            <span class="transition duration-300 group-hover:invisible group-hover:opacity-0"
+                                name="artistsrc"> Artist: {{i.artist}} </span>
+                            <a href="#"
+                                class="invisible absolute inset-0 flex items-center gap-3 translate-y-3 transition duration-300 group-hover:visible group-hover:translate-y-0">
+                                <span>Listen Now</span>
+
+                                <i class="fa fa-heart"></i>
+                            </a>
+
                         </div>
-
-                        <img src="{{i.image.url}}" alt="" name=imgsrc>
-                        {% if request.user.is_authenticated %}
-                        <form action="/music/history" method="post">{% csrf_token %}
-                            <input type="hidden" name="music_id" value="{{i.song_id}}">
-                            <div class="title-in">
-                                <a href="/music/songlisten/{{i.song_id}}"><button type="submit" class="hbtn">{{i.title}}</button> </a>
-                            </div>
-                        </form>
-                        {% else %}
-                        <div class="title-in">
-                            <a href="/music/songlisten/{{i.song_id}}"><button  class="hbtn">{{i.title}}</button></a>
-                        </div>
-                        {% endif %}
                     </div>
-                    <div class="othercard" hidden>
-                        <p class="card-text" name="titlesrc">{{i.title}}</p>
-                        <p class="card-text" name="artistsrc">{{i.artist}}</p>
-                    </div>
-                    <source src="{{i.song.url}}" name="mediasource">
-                    {% endfor %}
+                    <img src="{{i.image.url}}" alt=" Billie Eilish "
+                        class="absolute bottom-0 right-6 w-[6rem] transition duration-300 group-hover:scale-[1.4] "
+                        name="imgsrc">
+                    <source name="mediasource" src="{{i.song.url}}">
                 </div>
             </div>
+
+
+
+            {% endfor %}
+
+
         </div>
     </div>
 </div>
-<div style="margin: 15px;">
 
-</div>
 
-<div class="pagination">
-    <span class="step-links">
-        {% if songs.has_previous %}
-        <button>
-            <a href="?page=1">&laquo; First</a>
-        </button>
-        <button>
-            <a href="?page={{ songs.previous_page_number }}">Previous</a>
-        </button>
-        {% endif %}
-        <span class="current">
-            Page {{ songs.number }} of {{ songs.paginator.num_pages }}.
-        </span>
-        {% if songs.has_next %}
-        <button>
-            <a href="?page={{ songs.next_page_number }}">Next</a>
-        </button>
-        <button>
-            <a href="?page={{ songs.paginator.num_pages }}">Last &raquo;</a>
-        </button>
+<div class="container my-2" id="loadnext">
 
-        {% endif %}
-    </span>
+    {% if songs.has_next %}
+    <form method="post" id="load">
+        {% csrf_token %}
+        <input type="hidden" name="pagenumber" value="{{songs.next_page_number}}">
+        <div class="flex justify-content-center items-center">
+            <button type="submit" id="loadbtn"
+                class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">
+                Load More
+            </button>
+            <svg id="loadsvg" hidden></svg>
+        </div>
+
+    </form>
+    {% else %}
+
+
+    {% endif %}
 </div>
 
 
+<script src="/static/javascript/update.js"></script>
+<script src="/static/javascript/playme.js"></script>
+<script src="/static/javascript/requestforsonglist.js"></script>
+<script src="/static/javascript/songs.js"></script>
 
-<script src="/static/javascript/listenlaters.js"></script>
 
 
 {% endblock body %}

@@ -13,9 +13,9 @@ def index(request):
 
     if request.user.is_anonymous:
 
-        RecentlyAdded = Song.objects.all()[:4]
+        RecentlyAdded = Song.objects.all()[:3]
 
-        channels = Channel.objects.all()[:4]
+        channels = Channel.objects.all()[:3]
         song = Song.objects.all()
         return render(request, "index.html", {'song': RecentlyAdded, 'channels': channels})
 
@@ -38,8 +38,8 @@ def index(request):
     listenlaters = Song.objects.filter(
         song_id__in=listenId).order_by(preservedl)
 
-    RecentlyAdded = Song.objects.all()[:4]
-    channels = Channel.objects.all()[:4]
+    RecentlyAdded = Song.objects.all()[:3]
+    channels = Channel.objects.all()[:3]
     return render(request, "index.html", {'song': RecentlyAdded, 'channels': channels, 'historys': historys, 'listenlaters': listenlaters})
 
 

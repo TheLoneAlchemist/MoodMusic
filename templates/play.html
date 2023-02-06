@@ -2,16 +2,21 @@
 
 {% block title %}Play Music{% endblock title %}
 
-{% block body %}
+{% block headerin %}
 
 {% include 'playercard.html' %}
-{% include 'navbar.html' %}
+{% endblock headerin %}
+{% block body %}
+
 <div id="notify" hidden class="bg-purple-100 rounded-lg py-4 px-4 mb-4 text-base text-purple-700 mb-3" role="alert">
     <p id="msg"></p>
 </div>
 
 {% include 'face.html' %}
 
+
+
+<div id="heading"></div>
 
 {% comment %} load button start {% endcomment %}
 <div class="container my-2" hidden id="loadnext">
@@ -36,9 +41,6 @@
 </div>
 {% comment %} load button end {% endcomment %}
 
-<div id="heading"></div>
-
-
 
 {% endblock body %}
 
@@ -48,5 +50,6 @@
 <script src="/static/javascript/playme.js"></script>
 <script src="/static/javascript/update.js"></script>
 <script src="/static/javascript/songs.js"></script>
+<script src="/static/javascript/requestforplay.js"></script>
 
 {% endblock scripts %}

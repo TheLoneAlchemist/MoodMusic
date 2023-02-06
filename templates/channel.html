@@ -3,12 +3,12 @@
 {% block title %}Your Channel{% endblock title %}
 
 
-
+{% block headerin %}
+{% include 'playercard.html' %}
+{% endblock headerin %}
 
 
 {% block body %}
-{% include 'playercard.html' %}
-{% include 'navbar.html' %}
 
 <style>
     .pagination {

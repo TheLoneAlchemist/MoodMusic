@@ -1,3 +1,5 @@
+
+// function for creating heading 
 function heading() {
     const head = document.getElementById('heading');
 
@@ -26,15 +28,26 @@ function heading() {
 }
 
 
+// function for geting Random Hexcolor for songs 
 
+function getRandomHexColor() {
+    let letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  
 
 
 
 function createsong(song) {
+    const color = getRandomHexColor(); // generate random color 
     const s1div = document.createElement('div');
     s1div.setAttribute('class', 'relative flex flex-col justify-end overflow-hidden rounded-b-xl pt-6');
     const s2div = document.createElement('div');
-    s2div.setAttribute('class', 'group relative flex justify-between rounded-xl bg-amber-200 cursor-pointer before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-amber-600 before:opacity-0 before:transition before:duration-500 hover:before:opacity-100')
+    s2div.setAttribute('class', `group relative flex justify-between rounded-xl bg-[${color}]/[.3] cursor-pointer before:absolute before:inset-y-0 before:right-0 before:w-1/2 before:rounded-r-xl before:bg-gradient-to-r before:from-transparent before:to-[${color}]/[.7] before:opacity-0 before:transition before:duration-500 hover:before:opacity-100`);
     s2div.setAttribute('name','btns');
     const s3div = document.createElement('div');
     s3div.setAttribute('class','relative space-y-1 p-4');

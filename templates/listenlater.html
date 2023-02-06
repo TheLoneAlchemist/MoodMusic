@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block title %}Listen Later{% endblock title %}
-
+{% block headerin %}
+{% include 'playercard.html' %}
+{% endblock headerin %}
 {% block body %}
 
-{% include 'playercard.html' %}
 
-{% include 'navbar.html' %}
 
 <style>
     .pagination {

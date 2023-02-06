@@ -30,36 +30,88 @@
 
 </head>
 
-<body>
+<body id="mode" class="bg-gray-200 text-black">
 
-  <!-- Message Interation  -->
+  <header class="bg-rose sticky top-0 z-50">
+    <div class="container mx-auto p-2">
+      <nav class="flex items-center">
+        <h2 class="text-2xl font-bold mr-4">Mood Music</h2>
+        <a class="mr-4" href="/about">About</a>
+        <a class="mr-4" href="/contact">Contact</a>
 
-  <div>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
-      <strong> {{message}}</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true"> &times;</span>
-      </button>
+        <label class="items-center">
+          <input type="checkbox" id="toggle-mode" class="hidden">
+          <span class="bg-transparents w-6 h-6 cursor-pointer">
+            <span class="block transition-all ease-out duration-200" id="toggle-dot">
+              <i id="modeicon" class="bi bi-sun-fill"></i>
+            </span>
+          </span>
+        </label>
+      </nav>
+      
     </div>
-    {% endfor %}
-    {% endif %}
-    <!-- Message Interation End -->
-  </div>
+
+    {% block headerin %}{% endblock headerin %}
+
+  </header>
+
+  <main class="container mx-auto my-3">
 
 
+    <!-- Message Interation  -->
+
+    <div>
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+        <strong> {{message}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"> &times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      <!-- Message Interation End -->
+    </div>
+
+    {% block body %}{% endblock body %}
+  </main>
 
 
+  <footer class="bg-transparent sticky bottom-0 z-50">
+    <div class="container mx-auto p-2">
+      {% include 'navbar.html' %}
+      <p class="text-center text-gray-500">&copy; 2022/23 Mood Music</p>
+    </div>
+  </footer>
 
-
-
-
-
-  {% block body %}{% endblock body %}
 
 </body>
 
 {% block scripts %}{% endblock scripts %}
+
+<script>
+  const toggle = document.getElementById("toggle-mode");
+  const dot = document.getElementById("toggle-dot");
+  const body = document.body;
+  const icon = document.getElementById('modeicon');
+  toggle.addEventListener("change", function() {
+    if (this.checked) {
+      body.classList.remove("bg-gray-200");
+      body.classList.remove("text-black");
+      body.classList.add("bg-gray-900");
+      body.classList.add("text-white");
+      dot.style.left = "calc(100% - 3px)";
+      icon.setAttribute('class','bi bi-moon-fill')
+    } else {
+      body.classList.remove("bg-gray-900");
+      body.classList.remove("text-white");
+      body.classList.add("bg-gray-200");
+      body.classList.add("text-black");
+      dot.style.left = "0";
+      icon.setAttribute('class','bi bi-sun-fill')
+    }
+  });
+</script>
 
 </html>
