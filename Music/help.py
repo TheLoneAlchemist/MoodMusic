@@ -1,6 +1,8 @@
 import base64
 from pathlib import Path
 from deepface import DeepFace
+from PIL import Image
+import io
 
 
 def base64Toimage(encodedString, name):
@@ -35,5 +37,3 @@ def EmotionFromImage(image):
     # print('analyze report: ', analyzeimage)
     print('dominant: ', analyzeimage[0]['dominant_emotion'])
     return analyzeimage[0]['dominant_emotion']
-
-
