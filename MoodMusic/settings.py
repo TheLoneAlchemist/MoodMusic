@@ -157,7 +157,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 cloudinary.config( 
   cloud_name = "depq5oys1", 
   api_key = "744598955525331", 
-  api_secret = "WZ8l48LYEVrNvVZWAotmbJeRryM" 
+  api_secret = "WZ8l48LYEVrNvVZWAotmbJeRryM",
+  secure =True 
 )
 
 # Media settings

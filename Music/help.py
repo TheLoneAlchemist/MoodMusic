@@ -4,6 +4,18 @@ from deepface import DeepFace
 from PIL import Image
 import io
 
+import cloudinary
+import cloudinary.uploader
+
+
+def save_image(image_path, public_name):
+    response = cloudinary.uploader.upload(
+        image_path,use_filename =True,unique_filename=True,display_name=public_name, overwrite=False,folder = "moodmusic/faces/")
+    srcURL = cloudinary.CloudinaryImage(public_name).build_url()
+    print("****2. Upload an image****\nDelivery URL: ", srcURL, "\n")
+    print(response['url'])
+    return response['url']
+
 
 def base64Toimage(encodedString, name):
     decoded_data = base64.b64decode(encodedString)
@@ -22,6 +34,8 @@ def base64Toimage(encodedString, name):
         filepath = f"media/faces/{name}.png"
         img = Image.open(io.BytesIO(decoded_data))
         path = img.save(filepath, 'png')
+        print(path, "kkkkkkkkkkk")
+        save_image(f"media/faces/{name}.png", name)
         return f"faces/{name}.png"
     except Exception as e:
         print(e)
@@ -30,7 +44,7 @@ def base64Toimage(encodedString, name):
 
 
 def EmotionFromImage(image):
-    print(image)
+    print(image, "============")
     image = f'media/{image}'
     analyzeimage = DeepFace.analyze(img_path=image, actions=['emotion'])
 
