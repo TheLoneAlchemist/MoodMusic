@@ -35,7 +35,7 @@ git clone https://github.com/TheLoneAlchemist/MoodMusic
 3. Create a virtual environment and download the requirements 
 
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 3. Change media URL
